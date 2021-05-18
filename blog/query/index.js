@@ -27,6 +27,7 @@ app.post("/posts", (req, res) => {
     const post = posts[postId];
     post.comments.push({ id, content });
   }
+  console.log(post);
   res.send({});
 });
 
