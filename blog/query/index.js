@@ -6,19 +6,19 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const post = {};
+const posts = {};
 
 app.get("/posts", (req, res) => {
-  res.send(post);
+  res.send(posts);
 });
 
-app.post("/posts", (req, res) => {
+app.post("/events", (req, res) => {
   const { type, data } = req.body;
 
   if (type === "PostCreated") {
     const { id, title } = data;
 
-    post[id] = { id, title, comments: [] };
+    posts[id] = { id, title, comments: [] };
   }
 
   if (type === "CommentCreated") {
@@ -27,10 +27,12 @@ app.post("/posts", (req, res) => {
     const post = posts[postId];
     post.comments.push({ id, content });
   }
-  console.log(post);
+
+  console.log(posts);
+
   res.send({});
 });
 
 app.listen(4002, () => {
-  console.log("listen on 4002");
+  console.log("Listening on 4002");
 });
